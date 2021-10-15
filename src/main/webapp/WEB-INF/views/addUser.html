@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add user</title>
+</head>
+<body>
+<div th:insert="components/header"></div>
+<div class="page-container">
+    <h1 class="mx-auto">Add new user</h1>
+
+    <form method="post" name="tariff" action="/users/addUser">
+        <div class="mb-3">
+            <label for="firstName" class="form-label">First name</label>
+            <input type="text" class="form-control" id="firstName" name="name"/>
+        </div>
+        <div class="mb-3">
+            <label for="lastName" class="form-label">Last name</label>
+            <input type="text" class="form-control" id="lastName" name="name"/>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email name</label>
+            <input type="email" class="form-control" id="email" name="email"/>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Email name</label>
+            <input type="password" class="form-control" id="password" name="password"/>
+        </div>
+        <div class="mb-3">
+            <label for="balance" class="form-label">Balance</label>
+            <input type="number" class="form-control" id="balance" name="price"/>
+        </div>
+
+        <input class="w-100 btn btn-lg btn-primary" type="submit" value="Submit"/>
+    </form>
+</div>
+</body>
+</html>

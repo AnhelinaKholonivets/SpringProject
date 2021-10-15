@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>All tariffs</title>
+
+    <style>
+        .btn.my-btn {
+            width: auto;
+            overflow: auto;
+        }
+    </style>
+
+</head>
+<body>
+<div th:insert="components/header"></div>
+
+<div class="page-container">
+
+    <div class="d-flex align-items-center justify-content-between">
+        <div class="d-inline">
+            <h1>All tariffs</h1>
+        </div>
+        <div sec:authorize="isAuthenticated()" class="d-inline ">
+            <a class="btn btn-primary" href="/tariffs/addTariff" role="button">Add new tariff</a>
+        </div>
+    </div>
+
+    <div sec:authorize="isAuthenticated()">
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Tariff</th>
+            <th scope="col">Price</th>
+            <th scope="col">Currency</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="tariff: ${tariffs}">
+            <td th:text="${tariff.id}"></td>
+            <td th:text="${tariff.name}"></td>
+            <td th:text="${tariff.price}"></td>
+            <td>UAH</td>
+            <td><a class="btn-outline-primary text-decoration-none" href="#">Edit</a></td>
+            <td><a class="btn-outline-danger text-decoration-none" href="#">Delete</a></td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+
+    <div sec:authorize="isAnonymous()">
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tariff</th>
+                <th scope="col">Price</th>
+                <th scope="col">Currency</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="tariff: ${tariffs}">
+                <td th:text="${tariff.id}"></td>
+                <td th:text="${tariff.name}"></td>
+                <td th:text="${tariff.price}"></td>
+                <td>UAH</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+                <a class="page-link">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+</body>
+</html>
