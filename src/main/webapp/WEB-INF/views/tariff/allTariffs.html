@@ -10,7 +10,18 @@
             overflow: auto;
         }
     </style>
-
+    <script>
+        function deleteRequest(id) {
+            $.ajax({
+                url: '/tariffs/delete/' + id,
+                type: 'DELETE',
+                success: function(data) {
+                    console.log(data);
+                    document.location.reload();
+                }
+            });
+        }
+    </script>
 </head>
 <body>
 <div th:insert="components/header"></div>
@@ -44,8 +55,9 @@
             <td th:text="${tariff.name}"></td>
             <td th:text="${tariff.price}"></td>
             <td>UAH</td>
-            <td><a class="btn-outline-primary text-decoration-none" href="#">Edit</a></td>
-            <td><a class="btn-outline-danger text-decoration-none" href="#">Delete</a></td>
+            <td><a class="btn-outline-primary text-decoration-none" th:href="@{/tariffs/update/{id}(id = ${tariff.id})}">Edit</a></td>
+            <td><a class="btn-outline-primary text-decoration-none" th:id="${tariff.id}" onclick="deleteRequest(this.id)">Delete</a> </td>
+
         </tr>
         </tbody>
     </table>
@@ -72,8 +84,6 @@
             </tbody>
         </table>
     </div>
-
-
 
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">

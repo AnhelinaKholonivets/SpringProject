@@ -2,6 +2,9 @@ package com.springtestproject.dto;
 
 import lombok.*;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -9,7 +12,7 @@ import lombok.*;
 @Builder
 @ToString
 public class TariffDTO {
+    public long id;
     public  String name;
-    private Double price;
-    private Data date;
+    private BigDecimal price;
 }

@@ -3,6 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>All users</title>
+    <script>
+        function deleteRequest(id) {
+            $.ajax({
+                url: '/users/delete/' + id,
+                type: 'PUT',
+                success: function(data) {
+                    console.log(data);
+                    document.location.reload();
+                }
+            });
+        }
+    </script>
+
 </head>
 <body>
 <div th:insert="components/header"></div>

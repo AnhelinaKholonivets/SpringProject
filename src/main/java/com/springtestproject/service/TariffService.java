@@ -1,5 +1,6 @@
 package com.springtestproject.service;
 
+import com.springtestproject.dto.TariffDTO;
 import com.springtestproject.dto.TariffsDTO;
 import com.springtestproject.entity.Tariff;
 import com.springtestproject.repository.TariffRepo;
@@ -23,25 +24,32 @@ public class TariffService {
         return new TariffsDTO(tariffRepo.findAll());
     }
 
-    public void saveNewTariff (Tariff tariff){
+    public void saveTariff(TariffDTO tariff){
         try {
-            tariffRepo.save(tariff);
+            Tariff tariffToSave = new Tariff(null, tariff.getName(), tariff.getPrice());
+            tariffRepo.save(tariffToSave);
         } catch (Exception ex){
             log.info("{Tariff not be saved}");
         }
 
     }
 
-    public void updateTariff(Tariff tariff){
+    public void updateTariff(TariffDTO tariff, long id) {
         try {
-            tariffRepo.save(tariff);
+            Tariff tariffToSave = new Tariff(id, tariff.getName(), tariff.getPrice());
+            tariffRepo.save(tariffToSave);
         } catch (Exception ex){
-            log.info("{Tariff update error}");
+            log.info("{Tariff not be update}");
         }
 
     }
-    public void deleteTariff(Tariff tariff){
+
+    public void deleteTariff(Long id) {
+        try {
+            tariffRepo.deleteById(id);
+        } catch (Exception ex){
+            log.info("{Tariff not be update}");
+        }
 
     }
-
 }

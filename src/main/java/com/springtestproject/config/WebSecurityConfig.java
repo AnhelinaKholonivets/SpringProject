@@ -38,7 +38,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
     }
 
-
     @Bean
     @Override
     public UserDetailsService userDetailsService() {
@@ -52,12 +51,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new InMemoryUserDetailsManager(user);
     }
 
+
 //    @Override
 //    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        //super.configure(auth);
 //        auth.jdbcAuthentication()
 //                .dataSource(dataSource)
 //                .passwordEncoder(NoOpPasswordEncoder.getInstance())
-//                .usersByUsernameQuery("select email AS username,password, status FROM users WHERE email=#{username}")
-//                .authoritiesByUsernameQuery("select username, r.roles as role from users ud INNER JOIN role r ON r.id = u.role_id where email=?");
+//                .usersByUsernameQuery("select email AS username, password, status from users where email=?")
+//                .authoritiesByUsernameQuery("select u.email, r.role_id from users u inner join u.role_id on r.id where u.email=?");
+//
+//
 //    }
 }

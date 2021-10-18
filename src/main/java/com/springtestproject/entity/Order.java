@@ -23,6 +23,7 @@ public class Order {
     private User user;
     @ManyToOne
     @JoinColumn(name="tariff_id")
+    //local datatime
     private Tariff tariff;
     private Date date;
 }

@@ -34,7 +34,7 @@ public class UserController {
         User userToSave = new User(null, user.getFirstName(), user.getLastName(),
                 user.getEmail(), user.getPassword(), user.getBalance(), true,
                 user.getRoles());
-        userService.saveNewUser(userToSave);
+        userService.saveUser(userToSave);
         return "redirect:/allUsers";
     }
 

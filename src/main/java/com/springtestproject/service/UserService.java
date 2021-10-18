@@ -30,7 +30,7 @@ public class UserService {
         return userRepo.findByEmail(userDTO.getEmail());
     }
 
-    public void saveNewUser (User user){
+    public void saveUser (User user){
         //TODO inform the user about the replay email
         // TODO exception to endpoint
         try {

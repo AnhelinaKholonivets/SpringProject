@@ -1,15 +1,14 @@
 package com.springtestproject.controller;
 
-import com.springtestproject.entity.Tariff;
+import com.springtestproject.dto.TariffDTO;
 import com.springtestproject.service.TariffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/tariffs")
 public class TariffController {
     private final TariffService tariffService;
 
@@ -18,32 +17,34 @@ public class TariffController {
         this.tariffService = tariffService;
     }
 
-    @GetMapping("/tariff")
-    public String tariff() {
-        return "tariff";
-    }
-
-    @GetMapping("/tariffs")
-    public String getAllUser(Model model){
+    @GetMapping
+    public String getAllUser(Model model) {
         model.addAttribute("tariffs", tariffService.getAllTariffs().getTariffs());
-        return "allTariffs";
+        return "tariff/allTariffs";
     }
 
-    @GetMapping("/tariffs/addTariff")
+    @GetMapping("/addTariff")
     public String addTariff() {
-        return "addTariff";
+        return "tariff/addTariff";
     }
 
-    @PostMapping( "/tariffs/addTariff")
-    public String addNewTariff(@ModelAttribute("tariff") Tariff tariff) {
-        Tariff tariffToSave = new Tariff(null, tariff.getName(), tariff.getPrice());
-        tariffService.saveNewTariff(tariffToSave);
+    @PostMapping("/addTariff")
+    public String addNewTariff(@ModelAttribute("tariff") TariffDTO tariff) {
+        tariffService.saveTariff(tariff);
         return "redirect:/tariffs";
     }
 
-    @GetMapping("/deleteTariff")
-    public String deleteTariff(Model model){
-        return "redirect:/tariffs";
+    @PutMapping("/update/{id}")
+    public String updateTariff(@ModelAttribute("tariff") TariffDTO tariff, long id) {
+        tariffService.updateTariff(tariff, id);
+        return "tariff/updateTariff";
+    }
+
+    @DeleteMapping("/delete/{id}")
+    @ResponseBody
+    public String deleteTariff(@PathVariable Long id) {
+        tariffService.deleteTariff(id);
+        return "Deleted";
     }
 
 }
