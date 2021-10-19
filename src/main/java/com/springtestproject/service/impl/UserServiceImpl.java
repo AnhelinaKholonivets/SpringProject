@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
         // TODO exception to endpoint
         try {
             User userToSave = new User(null, user.getFirstName(), user.getLastName(),
-                    user.getEmail(), passwordEncoder.encode(user.getPassword()), user.getBalance(), false, Role.USER.name());
+                    user.getEmail(), passwordEncoder.encode(user.getPassword()), user.getBalance(), false, Role.ROLE_USER.toString());
             userRepo.save(userToSave);
         } catch (Exception ex) {
             log.info("{Error save user}");

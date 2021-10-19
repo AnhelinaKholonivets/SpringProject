@@ -3,11 +3,13 @@ package com.springtestproject.controller;
 import com.springtestproject.dto.TariffDTO;
 import com.springtestproject.service.TariffService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 @RequestMapping("/tariffs")
 public class TariffController {
     private final TariffService tariffService;
@@ -17,15 +19,9 @@ public class TariffController {
         this.tariffService = tariffService;
     }
 
-    @GetMapping
-    public String getAllTariffs(Model model) {
-        model.addAttribute("tariffs", tariffService.getAllTariffs().getTariffs());
-        return "tariff/allTariffs";
-    }
-
     @GetMapping("/addTariff")
     public String addTariff() {
-        return "tariff/addTariff";
+        return "tariff/allTariffsAdmin";
     }
 
     @PostMapping("/addTariff")

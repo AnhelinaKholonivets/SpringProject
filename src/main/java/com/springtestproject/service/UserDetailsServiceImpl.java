@@ -1,18 +1,17 @@
-package com.springtestproject.service.impl;
+package com.springtestproject.service;
 
 import com.springtestproject.repository.UserRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MyUserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserRepo userRepo;
 
-    public MyUserDetailsServiceImpl(UserRepo userRepo) {
+    public UserDetailsServiceImpl(UserRepo userRepo) {
         this.userRepo = userRepo;
     }
 

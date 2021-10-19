@@ -53,10 +53,10 @@ create index user_id
     on orders (user_id);
 
 INSERT INTO test_db.users (first_name, last_name, email, password, balance, blocked, role)
-VALUES ('admin', 'admin', 'admin@mail.com', '$2a$12$NXMOVsS3DoxdLfu7uKX.NeGFdYSPJfnwGQ2F5A17kBwH1Ff8izGoC', 0, 0, 'ADMIN');
+VALUES ('admin', 'admin', 'admin@mail.com', '$2a$12$NXMOVsS3DoxdLfu7uKX.NeGFdYSPJfnwGQ2F5A17kBwH1Ff8izGoC', 0, 0, 'ROLE_ADMIN');
 
 INSERT INTO test_db.users (first_name, last_name, email, password, balance, blocked, role)
-VALUES ('user', 'user', 'user@mail.com', '$2a$12$M7TfQ/SYZ9m8R8GrM58qDe92jXB2GN/SBumcjc92OndLu1ret/sMq', 0, 0, 'USER');
+VALUES ('user', 'user', 'user@mail.com', '$2a$12$M7TfQ/SYZ9m8R8GrM58qDe92jXB2GN/SBumcjc92OndLu1ret/sMq', 0, 0, 'ROLE_USER');
 
 INSERT INTO test_db.product (product)
 VALUES ('PHONE');

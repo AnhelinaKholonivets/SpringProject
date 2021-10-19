@@ -28,12 +28,15 @@
 
 <div class="page-container">
 
+    <div class="d-flex align-items-center justify-content-between">
         <div class="d-inline">
             <h1>All tariffs</h1>
         </div>
+        <div class="d-inline ">
+            <a class="btn btn-primary" href="/tariffs/addTariff" role="button">Add new tariff</a>
+        </div>
+    </div>
 
-
-    <div sec:authorize="isAuthenticated()">
         <table class="table table-striped table-hover">
             <thead>
             <tr>
@@ -42,6 +45,8 @@
                 <th scope="col">Tariff</th>
                 <th scope="col">Price</th>
                 <th scope="col">Currency</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
             </tr>
             </thead>
             <tbody>
@@ -51,36 +56,16 @@
                 <td th:text="${tariff.tariff}"></td>
                 <td th:text="${tariff.price}"></td>
                 <td>UAH</td>
+                <td><a class="btn-outline-primary text-decoration-none"
+                       th:href="@{/tariffs/update/{id}(id = ${tariff.id})}">Edit</a></td>
+                <td><a class="btn-outline-danger text-decoration-none" th:id="${tariff.id}"
+                       onclick="deleteRequest(this.id)">Delete</a></td>
+
             </tr>
             </tbody>
         </table>
-    </div>
 
-    <div sec:authorize="isAnonymous()">
-        <table class="table table-striped table-hover">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Product</th>
-                <th scope="col">Tariff</th>
-                <th scope="col">Price</th>
-                <th scope="col">Currency</th>
-
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="tariff, iterationStatus: ${tariffs}">
-                <td th:text="${iterationStatus.count}"></td>
-                <td th:text="${tariff.product.product}"></td>
-                <td th:text="${tariff.tariff}"></td>
-                <td th:text="${tariff.price}"></td>
-                <td>UAH</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <nav aria-label="Page navigation example">
+        <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
             <li class="page-item disabled">
                 <a class="page-link">Previous</a>

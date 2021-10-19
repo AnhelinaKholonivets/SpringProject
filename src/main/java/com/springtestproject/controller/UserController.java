@@ -3,12 +3,14 @@ package com.springtestproject.controller;
 import com.springtestproject.dto.UserDTO;
 import com.springtestproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/users")
+@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 public class UserController {
     private final UserService userService;
 
@@ -38,6 +40,6 @@ public class UserController {
     @ResponseBody
     public String blockUser(@PathVariable Long id) {
         userService.blockUser(id);
-        return "Deleted";
+        return "Done";
     }
 }

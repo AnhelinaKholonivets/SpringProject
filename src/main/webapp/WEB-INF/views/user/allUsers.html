@@ -52,8 +52,9 @@
             <td th:text="${user.email}"></td>
             <td th:text="${user.balance}"></td>
             <td>UAH</td>
-            <td th:if="${not user.blocked}"><a class="btn-outline-danger text-decoration-none" th:id="${user.id}"
+            <td th:if="${not user.blocked and user.role!='ROLE_ADMIN'}"><a class="btn-outline-danger text-decoration-none" th:id="${user.id}"
                 onclick="blockRequest(this.id)" href="#">Block</a></td>
+            <td th:if="${user.role=='ROLE_ADMIN'}"><a class="btn-outline-danger text-decoration-none" href="#"></a></td>
             <td th:if="${user.blocked}"><a class="btn-outline-success text-decoration-none" th:id="${user.id}"
                                            onclick="blockRequest(this.id)" href="#">Unblock</a></td>
         </tr>

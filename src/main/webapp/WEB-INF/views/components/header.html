@@ -34,10 +34,9 @@
                     <ul sec:authorize="isAnonymous()"
                         class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                         <li><a href="/home" class="nav-link px-2 text-white">Home</a></li>
-                        <li><a href="/tariffs" class="nav-link px-2 text-white">Tariffs</a></li>
                     </ul>
 
-                    <ul sec:authorize="isAuthenticated()"
+                    <ul sec:authorize="isAuthenticated() and hasRole('ROLE_ADMIN')"
                         class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                         <li><a href="/home" class="nav-link px-2 text-white">Home</a></li>
                         <li><a href="/tariffs" class="nav-link px-2 text-white">Tariffs</a></li>
@@ -45,13 +44,27 @@
                         <li><a href="/orders" class="nav-link px-2 text-white">Orders</a></li>
                     </ul>
 
+                    <ul sec:authorize="isAuthenticated() and hasRole('ROLE_USER')"
+                        class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                        <li><a href="/home" class="nav-link px-2 text-white">Home</a></li>
+                        <li><a href="/tariffs" class="nav-link px-2 text-white">Tariffs</a></li>
+                        <li><a href="/orders" class="nav-link px-2 text-white">Orders</a></li>
+                    </ul>
+
+                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                        <li><a href="#" class="nav-link px-2 text-secondary ">EN</a></li>
+                        <li><a class="nav-link px-2 text-white">|</a></li>
+                        <li><a href="#" class="nav-link px-2 text-white">UA</a></li>
+                    </ul>
+
 
                     <div class="text-end">
                         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                            <li><a href="#" class="nav-link px-2 text-secondary ">EN</a></li>
-                            <li><a class="nav-link px-2 text-white">|</a></li>
-                            <li><a href="#" class="nav-link px-2 text-white">UA</a></li>
-                            <li><a href="#" class="nav-link px-2 text-white">[[${#httpServletRequest.remoteUser}]]</a>
+
+                            <li><a sec:authorize="hasRole('ROLE_ADMIN')" href="#" class="nav-link px-2 text-white">[[${#httpServletRequest.remoteUser}]]</a>
+                            <li><a sec:authorize="hasRole('ROLE_USER')" href="/user/profile"
+                                   class="nav-link px-2 text-white">[[${#httpServletRequest.remoteUser}]]</a>
+
                             </li>
                             <li sec:authorize="isAnonymous()"><a class="btn btn-outline-light" href="/login"
                                                                  role="button">Login</a></li>
