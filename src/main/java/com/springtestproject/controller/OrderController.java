@@ -1,6 +1,7 @@
 package com.springtestproject.controller;
 
 import com.springtestproject.service.OrderService;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +16,10 @@ public class OrderController {
     }
 
     @GetMapping("/orders")
+    @Secured({"ADMIN"})
     public String getAllOrders(Model model) {
         model.addAttribute("orders", orderService.getAllOrders().getOrders());
-        return "allOrders";
+        return "order/allOrders";
     }
 
 

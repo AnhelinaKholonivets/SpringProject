@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -23,7 +23,6 @@ public class Order {
     private User user;
     @ManyToOne
     @JoinColumn(name="tariff_id")
-    //local datatime
     private Tariff tariff;
-    private Date date;
+    private LocalDateTime dateTime;
 }

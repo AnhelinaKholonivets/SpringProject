@@ -25,11 +25,11 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="order: ${orders}">
-            <td th:text="${order.id}"></td>
+        <tr th:each="order, iterationStatus: ${orders}">
+            <td th:text="${iterationStatus.count}"></td>
             <td th:text="${order.user.email}"></td>
-            <td th:text="${order.tariff.name}"></td>
-            <td th:text="${#dates.format(order.date, 'dd-MM-yyyy HH:mm')}"></td>
+            <td th:text="${order.tariff.tariff}"></td>
+            <td th:text="${#dates.format(order.dateTime, 'dd-MM-yyyy HH:mm')}"></td>
             <td><a class="btn-outline-primary text-decoration-none" href="#">Edit</a></td>
             <td><a class="btn-outline-danger text-decoration-none" href="#">Delete</a></td>
 

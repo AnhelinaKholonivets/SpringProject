@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <title>All users</title>
     <script>
-        function deleteRequest(id) {
+        function blockRequest(id) {
             $.ajax({
-                url: '/users/delete/' + id,
+                url: '/users/' + id,
                 type: 'PUT',
                 success: function(data) {
                     console.log(data);
@@ -41,20 +41,21 @@
             <th scope="col">Email</th>
             <th scope="col">Balance</th>
             <th scope="col">Currency</th>
-            <th scope="col">Status</th>
             <th scope="col">Block</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="user: ${users}">
-            <td th:text="${user.id}"></td>
+        <tr th:each="user, iterationStatus: ${users}" th:classappend="${not user.blocked} ? table-striped : table-danger">
+            <td th:text="${iterationStatus.count}"></td>
             <td th:text="${user.firstName}"></td>
             <td th:text="${user.lastName}"></td>
             <td th:text="${user.email}"></td>
             <td th:text="${user.balance}"></td>
             <td>UAH</td>
-            <td th:text="${user.status}"></td>
-            <td><a class="btn-outline-danger text-decoration-none" href="#">Block</a></td>
+            <td th:if="${not user.blocked}"><a class="btn-outline-danger text-decoration-none" th:id="${user.id}"
+                onclick="blockRequest(this.id)" href="#">Block</a></td>
+            <td th:if="${user.blocked}"><a class="btn-outline-success text-decoration-none" th:id="${user.id}"
+                                           onclick="blockRequest(this.id)" href="#">Unblock</a></td>
         </tr>
         </tbody>
     </table>

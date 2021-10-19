@@ -18,7 +18,7 @@ public class TariffController {
     }
 
     @GetMapping
-    public String getAllUser(Model model) {
+    public String getAllTariffs(Model model) {
         model.addAttribute("tariffs", tariffService.getAllTariffs().getTariffs());
         return "tariff/allTariffs";
     }

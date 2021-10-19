@@ -1,15 +1,14 @@
 package com.springtestproject.controller;
 
-import com.springtestproject.entity.User;
+import com.springtestproject.dto.UserDTO;
 import com.springtestproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/users")
 public class UserController {
     private final UserService userService;
 
@@ -18,24 +17,27 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/users")
+    @GetMapping
     public String getAllUsers(Model model) {
         model.addAttribute("users", userService.getAllUsers().getUsers());
-        return "allUsers";
+        return "user/allUsers";
     }
 
-    @GetMapping("/users/addUser")
+    @GetMapping("/addUser")
     public String addUser() {
-        return "addUser";
+        return "user/addUser";
     }
 
-    @PostMapping("/users/addUser")
-    public String addNewUser(@ModelAttribute("user") User user) {
-        User userToSave = new User(null, user.getFirstName(), user.getLastName(),
-                user.getEmail(), user.getPassword(), user.getBalance(), true,
-                user.getRoles());
-        userService.saveUser(userToSave);
+    @PostMapping("/addUser")
+    public String addNewUser(@ModelAttribute("user") UserDTO user) {
+        userService.saveUser(user);
         return "redirect:/allUsers";
     }
 
+    @PutMapping("/{id}")
+    @ResponseBody
+    public String blockUser(@PathVariable Long id) {
+        //userService.saveUser();
+        return "Deleted";
+    }
 }

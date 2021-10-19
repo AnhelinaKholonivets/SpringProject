@@ -2,17 +2,17 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>New tariff</title>
 </head>
 <body>
 <div th:insert="components/header"></div>
 <div class="page-container">
-    <h1 class="mx-auto">Update tariff</h1>
+    <h1 class="mx-auto">Add tariff</h1>
 
     <form method="post" name="tariff" action="/tariffs/addTariff">
         <div class="mb-3">
             <label for="tariffName" class="form-label">Tariff name</label>
-            <input type="text" class="form-control" id="tariffName" name="name"/>
+            <input type="text" class="form-control" id="tariffName" name="tariff"/>
         </div>
         <div class="mb-3">
             <label for="price" class="form-label">Price</label>
