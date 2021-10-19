@@ -37,7 +37,7 @@ public class UserController {
     @PutMapping("/{id}")
     @ResponseBody
     public String blockUser(@PathVariable Long id) {
-        //userService.saveUser();
+        userService.blockUser(id);
         return "Deleted";
     }
 }

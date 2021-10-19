@@ -28,7 +28,7 @@ public class User implements UserDetails {
     private String email;
     private String password;
     private BigDecimal balance;
-    private boolean blocked;
+    private Boolean blocked;
     private String role;
 
     @Override

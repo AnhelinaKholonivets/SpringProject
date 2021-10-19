@@ -6,7 +6,7 @@ create table tariff
 (
     id    bigint auto_increment primary key,
     tariff  varchar(255) null,
-    price decimal      null
+
 );
 
 create table users

@@ -18,8 +18,7 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     private final UserRepo userRepo;
 
-    final
-    PasswordEncoder passwordEncoder;
+    final PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserServiceImpl(UserRepo userRepo, PasswordEncoder passwordEncoder) {
@@ -48,14 +47,13 @@ public class UserServiceImpl implements UserService {
         } catch (Exception ex) {
             log.info("{Error save user}");
         }
-
     }
 
     public void blockUser(Long id) {
         Optional<User> optionalUser = userRepo.findById(id);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
-            user.setBlocked(true);
+            user.setBlocked(!user.getBlocked());
             userRepo.save(user);
         }
     }
