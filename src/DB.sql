@@ -2,12 +2,22 @@ drop database if exists test_db;
 create database test_db;
 use test_db;
 
+create table product
+(
+    id      bigint auto_increment primary key,
+    product varchar(255) null
+);
+
 create table tariff
 (
-    id    bigint auto_increment primary key,
-    tariff  varchar(255) null,
-
+    id         bigint auto_increment primary key,
+    tariff     varchar(255) not null,
+    product_id bigint       not null,
+    price      decimal      null,
+    constraint tariffs_ibfk_1
+        foreign key (product_id) references product (id)
 );
+
 
 create table users
 (
@@ -18,7 +28,7 @@ create table users
     password   varchar(255) not null,
     balance    decimal      null,
     blocked    boolean      not null,
-    role    varchar(10)       not null
+    role       varchar(10)  not null
 );
 
 create table orders
@@ -33,6 +43,8 @@ create table orders
         foreign key (tariff_id) references tariff (id)
 );
 
+create index service_id
+    on tariff (product_id);
 
 create index tariff_id
     on orders (tariff_id);
@@ -41,9 +53,17 @@ create index user_id
     on orders (user_id);
 
 INSERT INTO test_db.users (first_name, last_name, email, password, balance, blocked, role)
-VALUES ('admin', 'admin', 'admin@mail.com', 'adminp', 0, 0, 'ADMIN');
+VALUES ('admin', 'admin', 'admin@mail.com', '$2a$12$NXMOVsS3DoxdLfu7uKX.NeGFdYSPJfnwGQ2F5A17kBwH1Ff8izGoC', 0, 0, 'ADMIN');
 
 INSERT INTO test_db.users (first_name, last_name, email, password, balance, blocked, role)
-VALUES ('user', 'user', 'user@mail.com', 'userp', 0, 0, 'USER');
+VALUES ('user', 'user', 'user@mail.com', '$2a$12$M7TfQ/SYZ9m8R8GrM58qDe92jXB2GN/SBumcjc92OndLu1ret/sMq', 0, 0, 'USER');
 
+INSERT INTO test_db.product (product)
+VALUES ('PHONE');
+INSERT INTO test_db.product (product)
+VALUES ('INTERNET');
+INSERT INTO test_db.product (product)
+VALUES ('TV');
+INSERT INTO test_db.product (product)
+VALUES ('IPTV');
 

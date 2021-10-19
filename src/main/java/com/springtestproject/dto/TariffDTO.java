@@ -11,7 +11,8 @@ import java.math.BigDecimal;
 @Builder
 @ToString
 public class TariffDTO {
-    public long id;
-    public  String tariff;
+    private Long id;
+    private Long product;
+    private String tariff;
     private BigDecimal price;
 }

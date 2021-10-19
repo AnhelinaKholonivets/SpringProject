@@ -11,6 +11,16 @@
 
     <form method="post" name="tariff" action="/tariffs/addTariff">
         <div class="mb-3">
+            <label for="product">Service</label>
+            <select class="custom-select" id="product" name="product">
+                <option selected>Choose...</option>
+                <option value="1">PHONE</option>
+                <option value="2">INTERNET</option>
+                <option value="3">TV</option>
+                <option value="4">IPTV</option>
+            </select>
+        </div>
+        <div class="mb-3">
             <label for="tariffName" class="form-label">Tariff name</label>
             <input type="text" class="form-control" id="tariffName" name="tariff"/>
         </div>

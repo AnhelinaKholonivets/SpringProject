@@ -2,6 +2,7 @@ package com.springtestproject.service.impl;
 
 import com.springtestproject.dto.TariffDTO;
 import com.springtestproject.dto.TariffsDTO;
+import com.springtestproject.entity.Product;
 import com.springtestproject.entity.Tariff;
 import com.springtestproject.repository.TariffRepo;
 import com.springtestproject.service.TariffService;
@@ -29,7 +30,8 @@ public class TariffServiceImpl implements TariffService {
     @Override
     public void saveTariff(TariffDTO tariff){
         try {
-            Tariff tariffToSave = new Tariff(null, tariff.getTariff(), tariff.getPrice());
+            Product product = new Product(tariff.getProduct(),null);
+            Tariff tariffToSave = new Tariff(null, product, tariff.getTariff(), tariff.getPrice());
             tariffRepo.save(tariffToSave);
         } catch (Exception ex){
             log.info("{Tariff not be saved}");
@@ -40,7 +42,7 @@ public class TariffServiceImpl implements TariffService {
     @Override
     public void updateTariff(TariffDTO tariff, long id) {
         try {
-            Tariff tariffToSave = new Tariff(id, tariff.getTariff(), tariff.getPrice());
+            Tariff tariffToSave = new Tariff(id, null, tariff.getTariff(), tariff.getPrice());
             tariffRepo.save(tariffToSave);
         } catch (Exception ex){
             log.info("{Tariff not be update}");
