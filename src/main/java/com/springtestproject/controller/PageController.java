@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Controller //(for user)
+@Controller //(for users)
 public class PageController {
 
     private final TariffService tariffService;
@@ -41,11 +41,6 @@ public class PageController {
         return "redirect:/";
     }
 
-    @GetMapping("/registration")
-    public String addNewUser() {
-        return "registration";
-    }
-
     @GetMapping("/tariffs")
     public String getAllTariffs(Model model, Authentication authentication) {
         model.addAttribute("tariffs", tariffService.getAllTariffs().getTariffs());
@@ -59,5 +54,11 @@ public class PageController {
 
         return "tariff/allTariffs";
     }
+
+    @GetMapping("/user/profile")
+    public String userProfile(){
+        return "user/profile";
+    }
+
 
 }

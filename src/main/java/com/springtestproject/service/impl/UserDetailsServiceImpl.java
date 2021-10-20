@@ -1,4 +1,4 @@
-package com.springtestproject.service;
+package com.springtestproject.service.impl;
 
 import com.springtestproject.repository.UserRepo;
 import org.springframework.security.core.userdetails.UserDetails;

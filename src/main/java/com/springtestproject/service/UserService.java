@@ -9,4 +9,5 @@ public interface UserService {
     User findByUserLogin(UserDTO userDTO);
     void saveUser(UserDTO user);
     void blockUser(Long id);
+    User getCurrentUser();
 }

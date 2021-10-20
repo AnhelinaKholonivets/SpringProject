@@ -8,6 +8,7 @@ import com.springtestproject.repository.UserRepo;
 import com.springtestproject.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,17 +27,20 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Override
     public UsersDTO getAllUsers() {
         //TODO checking for an empty user list
         return new UsersDTO(userRepo.findAll());
     }
 
+    @Override
     public User findByUserLogin(UserDTO userDTO) {
         //TODO check for user availability. password check
         //return userRepo.findByEmail(userDTO.getEmail());
         return userRepo.findUsersByEmail(userDTO.getEmail());
     }
 
+    @Override
     public void saveUser(UserDTO user) {
         //TODO inform the user about the replay email
         // TODO exception to endpoint
@@ -49,6 +53,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
     public void blockUser(Long id) {
         Optional<User> optionalUser = userRepo.findById(id);
         if (optionalUser.isPresent()) {
@@ -56,6 +61,11 @@ public class UserServiceImpl implements UserService {
             user.setBlocked(!user.getBlocked());
             userRepo.save(user);
         }
+    }
+
+    @Override
+    public User getCurrentUser() {
+        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
 }

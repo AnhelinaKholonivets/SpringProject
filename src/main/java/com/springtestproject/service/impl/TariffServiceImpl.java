@@ -28,16 +28,22 @@ public class TariffServiceImpl implements TariffService {
     }
 
     @Override
-    public void saveTariff(TariffDTO tariff){
-        try {
-            Product product = new Product(tariff.getProduct(),null);
-            Tariff tariffToSave = new Tariff(null, product, tariff.getTariff(), tariff.getPrice());
-            tariffRepo.save(tariffToSave);
-        } catch (Exception ex){
-            log.info("{Tariff not be saved}");
-        }
+    public void saveTariff(TariffDTO tariff) {
 
     }
+
+//    @Override
+//    public void saveTariff(TariffDTO tariff){
+//        try {
+//            //not work
+//            Product product = new Product(tariff.getProduct(),null);
+//            Tariff tariffToSave = new Tariff(null, product, tariff.getTariff(), tariff.getPrice());
+//            tariffRepo.save(tariffToSave);
+//        } catch (Exception ex){
+//            log.info("{Tariff not be saved}");
+//        }
+//
+//    }
 
     @Override
     public void updateTariff(TariffDTO tariff, long id) {
