@@ -19,4 +19,5 @@ public class Tariff {
     private Product product;
     private String tariff;
     private BigDecimal price;
+
 }

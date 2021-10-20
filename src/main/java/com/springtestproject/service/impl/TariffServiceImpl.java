@@ -8,6 +8,7 @@ import com.springtestproject.repository.TariffRepo;
 import com.springtestproject.service.TariffService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -24,31 +25,24 @@ public class TariffServiceImpl implements TariffService {
     @Override
     public TariffsDTO getAllTariffs() {
         //TODO checking for an empty user list
-        return new TariffsDTO(tariffRepo.findAll());
+        return new TariffsDTO(tariffRepo.findAll(Sort.by("product")));
     }
 
     @Override
-    public void saveTariff(TariffDTO tariff) {
-
+    public void saveTariff(TariffDTO tariff){
+        try {
+            Product product = new Product(Long.valueOf(tariff.getProduct()), null);
+            Tariff tariffToSave = new Tariff(null, product, tariff.getTariff(), tariff.getPrice());
+            tariffRepo.save(tariffToSave);
+        } catch (Exception ex){
+            log.info("{Tariff not be saved}");
+        }
     }
-
-//    @Override
-//    public void saveTariff(TariffDTO tariff){
-//        try {
-//            //not work
-//            Product product = new Product(tariff.getProduct(),null);
-//            Tariff tariffToSave = new Tariff(null, product, tariff.getTariff(), tariff.getPrice());
-//            tariffRepo.save(tariffToSave);
-//        } catch (Exception ex){
-//            log.info("{Tariff not be saved}");
-//        }
-//
-//    }
 
     @Override
     public void updateTariff(TariffDTO tariff, long id) {
         try {
-            Tariff tariffToSave = new Tariff(id, null, tariff.getTariff(), tariff.getPrice());
+            Tariff tariffToSave = new Tariff(id,null, tariff.getTariff(), tariff.getPrice());
             tariffRepo.save(tariffToSave);
         } catch (Exception ex){
             log.info("{Tariff not be update}");
@@ -61,7 +55,7 @@ public class TariffServiceImpl implements TariffService {
         try {
             tariffRepo.deleteById(id);
         } catch (Exception ex){
-            log.info("{Tariff not be update}");
+            log.info("{Tariff not be delete}");
         }
 
     }

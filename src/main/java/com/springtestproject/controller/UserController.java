@@ -33,7 +33,7 @@ public class UserController {
     @PostMapping("/addUser")
     public String addNewUser(@ModelAttribute("user") UserDTO user) {
         userService.saveUser(user);
-        return "redirect:/allUsers";
+        return "redirect:/users";
     }
 
     @PutMapping("/{id}")

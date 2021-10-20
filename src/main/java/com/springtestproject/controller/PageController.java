@@ -1,7 +1,9 @@
 package com.springtestproject.controller;
 
 import com.springtestproject.entity.Role;
+import com.springtestproject.service.OrderService;
 import com.springtestproject.service.TariffService;
+import com.springtestproject.service.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,9 +23,13 @@ import java.util.stream.Collectors;
 public class PageController {
 
     private final TariffService tariffService;
+    private final OrderService orderService;
+    private final UserService userService;
 
-    public PageController(TariffService tariffService) {
+    public PageController(TariffService tariffService, OrderService orderService, UserService userService) {
         this.tariffService = tariffService;
+        this.orderService = orderService;
+        this.userService = userService;
     }
 
     @GetMapping(value = {"/", "home"})
@@ -51,14 +57,13 @@ public class PageController {
         if (userRoles.contains(Role.ROLE_ADMIN.toString())) {
             return "tariff/allTariffsAdmin";
         }
-
         return "tariff/allTariffs";
     }
 
     @GetMapping("/user/profile")
-    public String userProfile(){
+    public String userProfile(Model model) {
+       // model.addAttribute("orders", orderService.getAllOrdersByUser(userService.getCurrentUser()));
+        model.addAttribute("user", userService.getCurrentUser());
         return "user/profile";
     }
-
-
 }
