@@ -5,12 +5,10 @@ import lombok.*;
 
 import java.util.List;
 
-@Getter
-@Setter
+
+@Data @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@ToString
-public class UsersDTO {
+public class UsersDto {
     private List<User> users;
 }

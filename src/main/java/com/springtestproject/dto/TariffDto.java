@@ -5,19 +5,16 @@ import lombok.*;
 
 import java.math.BigDecimal;
 
-@Getter
-@Setter
+@Data @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@ToString
-public class TariffDTO {
+public class TariffDto {
     private Long id;
     private String product;
     private String tariff;
     private BigDecimal price;
 
-    public TariffDTO(Tariff tariff) {
+    public TariffDto(Tariff tariff) {
         this.id = tariff.getId();
         this.product = tariff.getProduct().getProduct();
         this.tariff = tariff.getTariff();

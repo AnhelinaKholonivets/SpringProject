@@ -4,13 +4,10 @@ import lombok.*;
 
 import java.math.BigDecimal;
 
-@Getter
-@Setter
+@Data @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@ToString
-public class UserDTO {
+public class UserDto {
     private Long id;
     private String firstName;
     private String lastName;

@@ -1,6 +1,6 @@
 package com.springtestproject.controller;
 
-import com.springtestproject.dto.TariffDTO;
+import com.springtestproject.dto.TariffDto;
 import com.springtestproject.service.ProductService;
 import com.springtestproject.service.TariffService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +29,13 @@ public class TariffController {
     }
 
     @PostMapping("/addTariff")
-    public String addNewTariff(@ModelAttribute("tariff") TariffDTO tariff) {
+    public String addNewTariff(@ModelAttribute("tariff") TariffDto tariff) {
         tariffService.saveTariff(tariff);
         return "redirect:/tariffs";
     }
 
     @PutMapping("/update/{id}")
-    public String updateTariff(@ModelAttribute("tariff") TariffDTO tariff, long id) {
+    public String updateTariff(@ModelAttribute("tariff") TariffDto tariff, long id) {
         tariffService.updateTariff(tariff, id);
         return "tariff/updateTariff";
     }

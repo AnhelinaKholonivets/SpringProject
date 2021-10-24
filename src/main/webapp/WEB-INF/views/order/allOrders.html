@@ -31,7 +31,7 @@
             <td th:text="${order.tariff.product}"></td>
             <td th:text="${order.tariff.tariff}"></td>
             <td th:text="${order.tariff.price}"></td>
-            <td th:text="${#dates.format(order.getDateTime(), 'dd-MM-yyyy HH:mm')}"></td>
+            <td th:text="${#temporals.format(order.dateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
 
         </tr>
         </tbody>

@@ -26,5 +26,5 @@ public class Order {
     @JoinColumn(name="tariff_id")
     private Tariff tariff;
     //LocalDateTime
-    private Date dateTime;
+    private LocalDateTime dateTime;
 }

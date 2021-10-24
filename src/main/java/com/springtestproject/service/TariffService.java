@@ -1,11 +1,11 @@
 package com.springtestproject.service;
 
-import com.springtestproject.dto.TariffDTO;
-import com.springtestproject.dto.TariffsDTO;
+import com.springtestproject.dto.TariffDto;
+import com.springtestproject.dto.TariffsDto;
 
 public interface TariffService {
-    TariffsDTO getAllTariffs();
-    void saveTariff(TariffDTO tariff);
-    void updateTariff(TariffDTO tariff, long id);
+    TariffsDto getAllTariffs();
+    void saveTariff(TariffDto tariff);
+    void updateTariff(TariffDto tariff, long id);
     void deleteTariff(Long id);
 }

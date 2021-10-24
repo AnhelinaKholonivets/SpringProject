@@ -1,5 +1,6 @@
 package com.springtestproject.controller;
 
+import com.springtestproject.dto.BalanceDto;
 import com.springtestproject.entity.Role;
 import com.springtestproject.service.OrderService;
 import com.springtestproject.service.TariffService;
@@ -10,12 +11,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,7 +34,6 @@ public class PageController {
 
     @GetMapping(value = {"/", "home"})
     public String mainPage(Model model) {
-        model.addAttribute("text", "Some different text");
         return "home";
     }
 
@@ -62,8 +61,16 @@ public class PageController {
 
     @GetMapping("/user/profile")
     public String userProfile(Model model) {
-       // model.addAttribute("orders", orderService.getAllOrdersByUser(userService.getCurrentUser()));
         model.addAttribute("user", userService.getCurrentUser());
+        model.addAttribute("orders", orderService.getAllOrdersByUser(userService.getCurrentUser()));
         return "user/profile";
+    }
+
+    @PutMapping("/user/profile")
+    @ResponseBody
+    public BalanceDto updateBalance(BalanceDto balanceDto) {
+        Long id = userService.getCurrentUser().getId();
+        userService.updateBalance(id, balanceDto.getAddToBalance());
+        return balanceDto;
     }
 }

@@ -1,6 +1,6 @@
 package com.springtestproject.service.impl;
 
-import com.springtestproject.dto.ProductsDTO;
+import com.springtestproject.dto.ProductsDto;
 import com.springtestproject.entity.Product;
 import com.springtestproject.repository.ProductRepo;
 import com.springtestproject.service.ProductService;
@@ -20,9 +20,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductsDTO getAllProducts() {
+    public ProductsDto getAllProducts() {
         //TODO checking for an empty user list
-        return new ProductsDTO(productRepo.findAll());
+        return new ProductsDto(productRepo.findAll());
     }
 
     public void saveNewProduct(Product product){

@@ -1,6 +1,6 @@
 package com.springtestproject.controller;
 
-import com.springtestproject.dto.UserDTO;
+import com.springtestproject.dto.UserDto;
 import com.springtestproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -31,7 +31,7 @@ public class UserController {
     }
 
     @PostMapping("/addUser")
-    public String addNewUser(@ModelAttribute("user") UserDTO user) {
+    public String addNewUser(@ModelAttribute("user") UserDto user) {
         userService.saveUser(user);
         return "redirect:/users";
     }

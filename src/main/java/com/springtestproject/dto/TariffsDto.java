@@ -5,12 +5,9 @@ import lombok.*;
 
 import java.util.List;
 
-@Getter
-@Setter
+@Data @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@ToString
-public class TariffsDTO {
+public class TariffsDto {
     private List<Tariff> tariffs;
 }

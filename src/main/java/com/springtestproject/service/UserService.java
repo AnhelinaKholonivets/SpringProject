@@ -1,13 +1,16 @@
 package com.springtestproject.service;
 
-import com.springtestproject.dto.UserDTO;
-import com.springtestproject.dto.UsersDTO;
+import com.springtestproject.dto.UserDto;
+import com.springtestproject.dto.UsersDto;
 import com.springtestproject.entity.User;
 
+import java.math.BigDecimal;
+
 public interface UserService {
-    UsersDTO getAllUsers();
-    User findByUserLogin(UserDTO userDTO);
-    void saveUser(UserDTO user);
+    UsersDto getAllUsers();
+    User findByUserLogin(UserDto userDTO);
+    void saveUser(UserDto user);
     void blockUser(Long id);
     User getCurrentUser();
+    void updateBalance(Long id, BigDecimal addBalance);
 }

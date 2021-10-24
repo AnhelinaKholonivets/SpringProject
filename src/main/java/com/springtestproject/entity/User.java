@@ -31,6 +31,10 @@ public class User implements UserDetails {
     private Boolean blocked;
     private String role;
 
+    public User(Long id) {
+        this.id = id;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singleton((GrantedAuthority) () -> role);

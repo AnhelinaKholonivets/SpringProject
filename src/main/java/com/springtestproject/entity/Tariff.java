@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,5 +20,4 @@ public class Tariff {
     private Product product;
     private String tariff;
     private BigDecimal price;
-
 }
