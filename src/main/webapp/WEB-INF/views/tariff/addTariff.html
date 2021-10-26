@@ -7,7 +7,7 @@
 <body>
 <div th:insert="components/header"></div>
 <div class="page-container">
-    <h1 class="mx-auto">Add tariff</h1>
+    <h1 th:text="#{tariff.add}" class="mx-auto"></h1>
 
     <form method="post" name="tariff" action="/tariffs/addTariff">
         <div>
@@ -20,14 +20,14 @@
             </select>
         </div>
         <div class="mb-3">
-            <label for="tariff" class="form-label">Tariff name</label>
+            <label th:text="#{tariff.name}" for="tariff" class="form-label"></label>
             <input type="text" class="form-control" id="tariff" name="tariff"/>
         </div>
         <div class="mb-3">
-            <label for="price" class="form-label">Price</label>
+            <label th:text="#{price}" for="price" class="form-label"></label>
             <input type="number" class="form-control" id="price" name="price"/>
         </div>
-        <input class="w-100 btn btn-lg btn-primary" type="submit" value="Submit"/>
+        <input class="w-100 btn btn-lg btn-primary" type="submit"/>
     </form>
 
 </div>

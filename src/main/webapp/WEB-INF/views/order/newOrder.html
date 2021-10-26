@@ -12,18 +12,17 @@
     <script>
         function addOrders() {
             let tariffsIds = [];
-            $("input:checkbox[name=id]:checked").each(function(){
+            $("input:checkbox[name=id]:checked").each(function () {
                 tariffsIds.push($(this).val());
             });
-            console.log(tariffsIds);
 
             $.ajax({
-                url: '/createOrder',
+                url: '/orders/new',
                 type: 'POST',
                 data: JSON.stringify(tariffsIds),
                 contentType: "application/json",
                 success: function (data) {
-                    document.hea
+                    console.log(data);
                 }
             });
         }

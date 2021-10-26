@@ -21,62 +21,60 @@
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div th:fragment="header">
-    <main>
-        <header class="p-3 bg-dark text-white">
+
+     <header class="p-3 bg-dark text-white">
             <div class="container">
                 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 
                     <ul sec:authorize="isAnonymous()"
                         class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                        <li><a href="/home" class="nav-link px-2 text-white">Home</a></li>
+                        <li><a href="/home" th:text="#{header.home}" class="nav-link px-2 text-white"></a></li>
                     </ul>
 
                     <ul sec:authorize="isAuthenticated() and hasRole('ROLE_ADMIN')"
                         class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                        <li><a href="/home" class="nav-link px-2 text-white">Home</a></li>
-                        <li><a href="/tariffs" class="nav-link px-2 text-white">Tariffs</a></li>
-                        <li><a href="/users" class="nav-link px-2 text-white">Users</a></li>
-                        <li><a href="/orders" class="nav-link px-2 text-white">Orders</a></li>
+                        <li><a href="/home" th:text="#{header.home}" class="nav-link px-2 text-white"></a></li>
+                        <li><a href="/tariffs" th:text="#{header.tariffs}" class="nav-link px-2 text-white"></a></li>
+                        <li><a href="/users" th:text="#{header.users}" class="nav-link px-2 text-white"></a></li>
+                        <li><a href="/orders" th:text="#{header.orders}" class="nav-link px-2 text-white"></a></li>
                     </ul>
 
                     <ul sec:authorize="isAuthenticated() and hasRole('ROLE_USER')"
                         class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                        <li><a href="/home" class="nav-link px-2 text-white">Home</a></li>
-                        <li><a href="/tariffs" class="nav-link px-2 text-white">All tariffs</a></li>
-                        <li><a href="/myorders" class="nav-link px-2 text-white">My orders</a></li>
+                        <li><a href="/home" th:text="#{header.home}" class="nav-link px-2 text-white"></a></li>
+                        <li><a href="/tariffs" th:text="#{header.tariffs}" class="nav-link px-2 text-white"></a></li>
+                        <li><a href="/myorders" th:text="#{header.orders}" class="nav-link px-2 text-white"></a></li>
                     </ul>
 
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                        <li><a href="#" class="nav-link px-2 text-secondary ">EN</a></li>
-                        <li><a class="nav-link px-2 text-white">|</a></li>
-                        <li><a href="#" class="nav-link px-2 text-white">UA</a></li>
+                        <li class="nav-item dropdown">
+                            <a th:text="${#strings.toUpperCase(#locale.getLanguage())}" class="nav-link dropdown-toggle text-white"
+                               href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false"></a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdown01">
+                                <li><a class="dropdown-item" th:text="EN" th:href="@{/(lang=en_EN)}"></a></li>
+                                <li><a class="dropdown-item" th:text="UA" th:href="@{/(lang=ua_UA)}"></a></li>
+                            </ul>
+                        </li>
                     </ul>
-
 
                     <div class="text-end">
                         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-
                             <li><a sec:authorize="hasRole('ROLE_ADMIN')" href="#" class="nav-link px-2 text-white">[[${#httpServletRequest.remoteUser}]]</a>
                             <li><a sec:authorize="hasRole('ROLE_USER')" href="/user/profile"
-                                   class="nav-link px-2 text-white">[[${#httpServletRequest.remoteUser}]]</a>
-
-                            </li>
-                            <li sec:authorize="isAnonymous()"><a class="btn btn-outline-light" href="/login"
-                                                                 role="button">Login</a></li>
-                            <li sec:authorize="isAuthenticated()"><a class="btn btn-outline-light" href="/logout"
-                                                                     role="button">Logout</a></li>
+                                   class="nav-link px-2 text-white">[[${#httpServletRequest.remoteUser}]]</a></li>
+                            <li sec:authorize="isAnonymous()">
+                                <a th:text="#{header.login}" class="btn btn-outline-light" href="/login" role="button"></a></li>
+                            <li sec:authorize="isAuthenticated()">
+                                <a th:text="#{header.logout}" class="btn btn-outline-light" href="/logout" role="button"></a></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </header>
-    </main>
-    <br>
 
     <script src="/js/bootstrap.bundle.min.js"></script>
 </div>
