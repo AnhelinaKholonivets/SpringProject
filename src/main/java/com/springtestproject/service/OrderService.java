@@ -8,6 +8,6 @@ import java.util.List;
 public interface OrderService {
     List<OrderDto> getAllOrders();
     List<OrderDto>  getAllOrdersByUser(User user);
-    void saveNewOrders(List<Long> tariffsIds, Long userId);
+    void saveNewOrders(List<Long> tariffsIds, long userId);
 }
 

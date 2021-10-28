@@ -56,13 +56,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void blockUser(Long id) {
-        Optional<User> optionalUser = userRepo.findById(id);
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            user.setBlocked(!user.getBlocked());
-            userRepo.save(user);
-        }
+    public void blockUser(long id) {
+        User user = userRepo.findById(id);
+        user.setBlocked(!user.getBlocked());
+        userRepo.save(user);
+
     }
 
     @Override
@@ -72,13 +70,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateBalance(Long id, BigDecimal addBalance) {
-        Optional<User> optionalUser = userRepo.findById(id);
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            user.setBalance(user.getBalance().add(addBalance));
-            userRepo.save(user);
-        }
+    public void refileBalance(long id, BigDecimal addBalance) {
+        User user = userRepo.findById(id);
+        user.setBalance(user.getBalance().add(addBalance));
+        userRepo.save(user);
+
     }
 
 }

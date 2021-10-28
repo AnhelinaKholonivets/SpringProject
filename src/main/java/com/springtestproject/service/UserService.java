@@ -10,7 +10,7 @@ public interface UserService {
     UsersDto getAllUsers();
     User findByUserLogin(UserDto userDTO);
     void saveUser(UserDto user);
-    void blockUser(Long id);
+    void blockUser(long id);
     User getCurrentUser();
-    void updateBalance(Long id, BigDecimal addBalance);
+    void refileBalance(long id, BigDecimal addBalance);
 }

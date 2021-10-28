@@ -7,4 +7,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TariffRepo extends JpaRepository<Tariff, Long> {
     Tariff findById(long id);
-    }
+}
