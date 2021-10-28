@@ -39,7 +39,7 @@ public class OrderController {
 
     @GetMapping("/orders/new")
     public String addTariff(Model model) {
-        model.addAttribute("tariffs", tariffService.getAllTariffs().getTariffs());
+        model.addAttribute("tariffs", tariffService.getAllTariffs());
         return "order/newOrder";
     }
 

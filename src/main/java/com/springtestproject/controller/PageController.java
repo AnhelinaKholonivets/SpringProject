@@ -1,10 +1,14 @@
 package com.springtestproject.controller;
 
 import com.springtestproject.dto.BalanceDto;
+import com.springtestproject.dto.TariffDto;
 import com.springtestproject.entity.Role;
+import com.springtestproject.entity.User;
 import com.springtestproject.service.OrderService;
 import com.springtestproject.service.TariffService;
 import com.springtestproject.service.UserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,7 +20,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller //(for users)
 public class PageController {
@@ -46,8 +52,25 @@ public class PageController {
     }
 
     @GetMapping("/tariffs")
-    public String getAllTariffs(Model model, Authentication authentication) {
-        model.addAttribute("tariffs", tariffService.getAllTariffs().getTariffs());
+    public String getAllTariffs(Model model, Authentication authentication,
+                                @RequestParam("page") Optional<Integer> page,
+                                @RequestParam("size") Optional<Integer> size,
+                                @RequestParam("")) {
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(5);
+
+        Page<TariffDto> tariffs = tariffService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
+
+        model.addAttribute("tariffs", tariffs);
+
+        int totalPages = tariffs.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+
         List<String> userRoles = authentication.getAuthorities()
                 .stream()
                 .map(GrantedAuthority::getAuthority)
