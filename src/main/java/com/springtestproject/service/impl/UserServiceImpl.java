@@ -8,11 +8,17 @@ import com.springtestproject.repository.UserRepo;
 import com.springtestproject.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -75,6 +81,24 @@ public class UserServiceImpl implements UserService {
         user.setBalance(user.getBalance().add(addBalance));
         userRepo.save(user);
 
+    }
+
+    public Page<User> findPaginated(Pageable pageable) {
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+        List<User> list;
+
+        List<User> users = userRepo.findAll();
+
+        if (users.size() < startItem) {
+            list = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, users.size());
+            list = users.subList(startItem, toIndex);
+        }
+
+        return new PageImpl<User>(list, PageRequest.of(currentPage, pageSize), users.size());
     }
 
 }
