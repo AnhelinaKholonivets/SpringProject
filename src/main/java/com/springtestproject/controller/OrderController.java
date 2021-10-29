@@ -1,16 +1,15 @@
 package com.springtestproject.controller;
 
-import com.springtestproject.exception.LowBalanceException;
+import com.springtestproject.entity.Role;
 import com.springtestproject.service.OrderService;
 import com.springtestproject.service.TariffService;
 import com.springtestproject.service.UserService;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -27,18 +26,16 @@ public class OrderController {
     }
 
     @GetMapping("/orders")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public String getAllOrders(Model model) {
-        model.addAttribute("orders", orderService.getAllOrders());
-        return "order/allOrdersAdmin";
-    }
 
-    @GetMapping("/myorders")
-    public String getAllOrdersForUser(Model model) {
-        model.addAttribute("orders", orderService.getAllOrdersByUser(userService.getCurrentUser()));
+        String userRole = userService.getCurrentUser().getRole().toString();
+
+        if (userRole.contains(Role.ROLE_ADMIN.toString())) {
+            model.addAttribute("orders", orderService.getAllOrders());
+        } else model.addAttribute("orders", orderService.getAllOrdersByUser(userService.getCurrentUser()));
+
         return "order/allOrders";
     }
-
 
     @GetMapping("/orders/new")
     public String addTariff(Model model) {

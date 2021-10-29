@@ -80,11 +80,8 @@ public class PageController {
             model.addAttribute("pageNumbers", pageNumbers);
         }
 
-        List<String> userRoles = authentication.getAuthorities()
-                .stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.toList());
-        if (userRoles.contains(Role.ROLE_ADMIN.toString())) {
+        String userRole = userService.getCurrentUser().getRole();
+        if (userRole.contains(Role.ROLE_ADMIN.toString())) {
             return "tariff/allTariffsAdmin";
         }
         return "tariff/allTariffs";

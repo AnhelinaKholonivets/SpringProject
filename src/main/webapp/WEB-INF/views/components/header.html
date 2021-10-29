@@ -35,19 +35,13 @@
                         <li><a href="/home" th:text="#{header.home}" class="nav-link px-2 text-white"></a></li>
                     </ul>
 
-                    <ul sec:authorize="isAuthenticated() and hasRole('ROLE_ADMIN')"
+                    <ul sec:authorize="isAuthenticated()"
                         class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                         <li><a href="/home" th:text="#{header.home}" class="nav-link px-2 text-white"></a></li>
                         <li><a href="/tariffs" th:text="#{header.tariffs}" class="nav-link px-2 text-white"></a></li>
-                        <li><a href="/users" th:text="#{header.users}" class="nav-link px-2 text-white"></a></li>
+                        <li sec:authorize="hasRole('ROLE_ADMIN')">
+                            <a href="/users" th:text="#{header.users}" class="nav-link px-2 text-white"></a></li>
                         <li><a href="/orders" th:text="#{header.orders}" class="nav-link px-2 text-white"></a></li>
-                    </ul>
-
-                    <ul sec:authorize="isAuthenticated() and hasRole('ROLE_USER')"
-                        class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                        <li><a href="/home" th:text="#{header.home}" class="nav-link px-2 text-white"></a></li>
-                        <li><a href="/tariffs" th:text="#{header.tariffs}" class="nav-link px-2 text-white"></a></li>
-                        <li><a href="/myorders" th:text="#{header.orders}" class="nav-link px-2 text-white"></a></li>
                     </ul>
 
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">

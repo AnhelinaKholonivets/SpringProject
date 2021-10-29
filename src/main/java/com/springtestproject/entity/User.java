@@ -35,6 +35,9 @@ public class User implements UserDetails {
         this.id = id;
     }
 
+    public User(User user) {
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singleton((GrantedAuthority) () -> role);

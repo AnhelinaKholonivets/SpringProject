@@ -57,11 +57,11 @@
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">First name</th>
-            <th scope="col">Last name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Balance</th>
-            <th scope="col">Currency</th>
+            <th th:text="#{user.firstName}" scope="col"></th>
+            <th th:text="#{user.lastName}" scope="col"></th>
+            <th th:text="#{email}" scope="col">Email</th>
+            <th th:text="#{user.balance}" scope="col">Balance</th>
+            <th th:text="#{currency}" scope="col">Currency</th>
             <th scope="col">Block</th>
         </tr>
         </thead>

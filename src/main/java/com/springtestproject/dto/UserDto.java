@@ -17,6 +17,14 @@ public class UserDto {
     private BigDecimal balance;
     private Boolean blocked;
     private String role;
+
     public UserDto(User user) {
+        this.id = user.getId();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.email = user.getEmail();
+        this.balance = user.getBalance();
+        this.blocked = user.getBlocked();
+        this.role = user.getRole();
     }
 }
