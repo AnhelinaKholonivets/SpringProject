@@ -1,8 +1,10 @@
 package com.springtestproject.service.impl;
 
+import com.springtestproject.dto.TariffDto;
 import com.springtestproject.dto.UserDto;
 import com.springtestproject.dto.UsersDto;
 import com.springtestproject.entity.Role;
+import com.springtestproject.entity.Tariff;
 import com.springtestproject.entity.User;
 import com.springtestproject.repository.UserRepo;
 import com.springtestproject.service.UserService;
@@ -20,6 +22,7 @@ import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -83,22 +86,15 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    public Page<User> findPaginated(Pageable pageable) {
-        int pageSize = pageable.getPageSize();
-        int currentPage = pageable.getPageNumber();
-        int startItem = currentPage * pageSize;
-        List<User> list;
+    public Page<UserDto> findPaginated(Pageable pageable) {
+        Page<User> userPage = userRepo.findAll(pageable);
 
-        List<User> users = userRepo.findAll();
+        List<UserDto> userDtos = userPage
+                .stream()
+                .map(UserDto::new)
+                .collect(Collectors.toList());
 
-        if (users.size() < startItem) {
-            list = Collections.emptyList();
-        } else {
-            int toIndex = Math.min(startItem + pageSize, users.size());
-            list = users.subList(startItem, toIndex);
-        }
-
-        return new PageImpl<User>(list, PageRequest.of(currentPage, pageSize), users.size());
+        return new PageImpl<>(userDtos, pageable, userPage.getTotalElements());
     }
 
 }

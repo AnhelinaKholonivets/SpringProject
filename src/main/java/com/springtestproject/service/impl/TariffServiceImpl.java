@@ -65,22 +65,13 @@ public class TariffServiceImpl implements TariffService {
 
     @Override
     public Page<TariffDto> findPaginated(Pageable pageable) {
-        int pageSize = pageable.getPageSize();
-        int currentPage = pageable.getPageNumber();
-        int startItem = currentPage * pageSize;
-        List<TariffDto> list;
+        Page<Tariff> tariffPage = tariffRepo.findAll(pageable);
 
-        List<TariffDto> tariffs = tariffRepo.findAll().stream()
+        List<TariffDto> tariffDtos = tariffPage
+                .stream()
                 .map(TariffDto::new)
                 .collect(Collectors.toList());
 
-        if (tariffs.size() < startItem) {
-            list = Collections.emptyList();
-        } else {
-            int toIndex = Math.min(startItem + pageSize, tariffs.size());
-            list = tariffs.subList(startItem, toIndex);
-        }
-
-        return new PageImpl<TariffDto>(list, PageRequest.of(currentPage, pageSize), tariffs.size());
+        return new PageImpl<>(tariffDtos, pageable, tariffPage.getTotalElements());
     }
 }

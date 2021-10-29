@@ -42,8 +42,16 @@
         <tr>
             <th scope="col">#</th>
             <th th:text="#{product}" scope="col"></th>
-            <th th:text="#{tariff}" scope="col"></th>
-            <th th:text="#{price}" scope="col"></th>
+            <th scope="col">
+                <a th:text="#{tariff}"
+                   th:href="@{/tariffs(size=${tariffs.size}, page=${tariffs.number + 1}, sortField='tariff', sortDir=${reverseSortDir})}">
+                </a>
+            </th>
+            <th scope="col">
+                <a th:text="#{price}"
+                   th:href="@{/tariffs(size=${tariffs.size}, page=${tariffs.number + 1}, sortField='price', sortDir=${reverseSortDir})}">
+                </a>
+            </th>
             <th th:text="#{currency}" scope="col"></th>
             <th th:text="#{edit}" scope="col"></th>
             <th th:text="#{delete}" scope="col"></th>
@@ -69,7 +77,9 @@
             <li th:if="${tariffs.totalPages > 0}"
                 th:each="pageNumber : ${pageNumbers}"
                 th:class="${pageNumber==tariffs.number + 1} ? 'page-item active' : 'page-item'">
-                <a class="page-link" th:href="@{/users(size=${tariffs.size}, page=${pageNumber})}"
+                <a class="page-link" th:href="@{/tariffs(size=${tariffs.size}, page=${pageNumber},
+                    sortField=${#request.getParameter('sortField')},
+                    sortDir=${#request.getParameter('sortDir')})}"
                    th:text="${pageNumber}"></a></li>
         </ul>
     </nav>

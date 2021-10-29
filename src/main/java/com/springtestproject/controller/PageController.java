@@ -9,6 +9,7 @@ import com.springtestproject.service.TariffService;
 import com.springtestproject.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -55,12 +56,20 @@ public class PageController {
     public String getAllTariffs(Model model, Authentication authentication,
                                 @RequestParam("page") Optional<Integer> page,
                                 @RequestParam("size") Optional<Integer> size,
-                                @RequestParam("")) {
+                                @RequestParam("sortField") Optional<String> sortField,
+                                @RequestParam("sortDir") Optional<String> sortDir) {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(5);
+        Sort sort = Sort.unsorted();
 
-        Page<TariffDto> tariffs = tariffService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
+        if (sortField.isPresent()) {
+            String sortDirection = sortDir.orElse("asc");
+           sort = Sort.by(Sort.Direction.fromString(sortDirection), sortField.get());
+        }
 
+        Page<TariffDto> tariffs = tariffService.findPaginated(PageRequest.of(currentPage - 1, pageSize, sort));
+
+        model.addAttribute("reverseSortDir", "asc".equals(sortDir.orElse(null)) ? "desc" : "asc");
         model.addAttribute("tariffs", tariffs);
 
         int totalPages = tariffs.getTotalPages();

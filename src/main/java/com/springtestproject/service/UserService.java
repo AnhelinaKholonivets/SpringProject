@@ -15,5 +15,5 @@ public interface UserService {
     void blockUser(long id);
     User getCurrentUser();
     void refileBalance(long id, BigDecimal addBalance);
-    Page<User> findPaginated(Pageable pageable);
+    Page<UserDto> findPaginated(Pageable pageable);
 }

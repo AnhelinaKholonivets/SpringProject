@@ -23,6 +23,12 @@
                 contentType: "application/json",
                 success: function (data) {
                     console.log(data);
+                },
+                error: function (data) {
+                    let balanceError = document.getElementById('balanceError');
+                    balanceError.style.height = '100px';
+                    balanceError.innerHTML = data.responseJSON.message;
+
                 }
             });
         }
@@ -61,7 +67,7 @@
                     </span>
                 </td>
                 <td th:text="${iterationStatus.count}"></td>
-                <td th:text="${tariff.product.product}"></td>
+                <td th:text="${tariff.product}"></td>
                 <td th:text="${tariff.tariff}"></td>
                 <td th:text="${tariff.price}"></td>
                 <td>UAH</td>
@@ -86,6 +92,9 @@
     <br>
     <div class=text-center>
         <button class="btn btn-outline-primary" type="button" onclick="addOrders()">Add</button>
+    </div>
+
+    <div id="balanceError" style="background-color: red; height: 0;">
     </div>
 
 </div>

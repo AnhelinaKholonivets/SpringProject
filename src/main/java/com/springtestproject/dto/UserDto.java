@@ -1,5 +1,6 @@
 package com.springtestproject.dto;
 
+import com.springtestproject.entity.User;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -16,5 +17,6 @@ public class UserDto {
     private BigDecimal balance;
     private Boolean blocked;
     private String role;
-
+    public UserDto(User user) {
+    }
 }

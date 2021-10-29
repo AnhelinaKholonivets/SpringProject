@@ -34,7 +34,7 @@ public class UserController {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(5);
 
-        Page<User> users = userService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
+        Page<UserDto> users = userService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
 
         model.addAttribute("users", users);
 

@@ -4,13 +4,16 @@ import com.springtestproject.dto.OrderDto;
 import com.springtestproject.entity.Order;
 import com.springtestproject.entity.Tariff;
 import com.springtestproject.entity.User;
+import com.springtestproject.exception.LowBalanceException;
 import com.springtestproject.repository.OrderRepo;
 import com.springtestproject.repository.TariffRepo;
 import com.springtestproject.repository.UserRepo;
 import com.springtestproject.service.OrderService;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,7 +53,6 @@ public class OrderServiceImpl implements OrderService {
                 .collect(Collectors.toList());
     }
 
-    @SneakyThrows
     @Override
     @Transactional
     public void saveNewOrders(List<Long> tariffsIds, long userId) {
@@ -63,7 +65,7 @@ public class OrderServiceImpl implements OrderService {
         User user = userRepo.findById(userId);
 
         if (user.getBalance().compareTo(orderPrice) < 0) {
-             throw new Exception("Error not enough money on user balance");
+             throw new LowBalanceException();
         }
         user.setBalance(user.getBalance().subtract(orderPrice));
         List<Order> orders = tariffs
@@ -76,5 +78,16 @@ public class OrderServiceImpl implements OrderService {
         } catch (Exception ex) {
             log.info("{Orders not were saved}");
         }
+    }
+
+    public Page<OrderDto> findPaginated(Pageable pageable) {
+        Page<Order> orderPage = orderRepo.findAll(pageable);
+
+        List<OrderDto> orderDtos = orderPage
+                .stream()
+                .map(OrderDto::new)
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(orderDtos, pageable, orderPage.getTotalElements());
     }
 }
