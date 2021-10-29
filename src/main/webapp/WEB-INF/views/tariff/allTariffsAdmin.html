@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>All tariffs</title>
@@ -53,7 +53,7 @@
                 </a>
             </th>
             <th th:text="#{currency}" scope="col"></th>
-            <th th:text="#{edit}" scope="col"></th>
+<!--            <th th:text="#{edit}" scope="col"></th>-->
             <th th:text="#{delete}" scope="col"></th>
         </tr>
         </thead>
@@ -64,8 +64,8 @@
             <td th:text="${tariff.tariff}"></td>
             <td th:text="${tariff.price}"></td>
             <td>UAH</td>
-            <td><a th:text="#{edit}" class="btn-outline-primary text-decoration-none"
-                   th:href="@{/tariffs/update/{id}(id = ${tariff.id})}"></a></td>
+<!--            <td><a th:text="#{edit}" class="btn-outline-primary text-decoration-none"-->
+<!--                   th:href="@{/tariffs/update/{id}(id = ${tariff.id})}"></a></td>-->
             <td><a th:text="#{delete}" class="btn-outline-danger text-decoration-none" th:id="${tariff.id}"
                    onclick="deleteRequest(this.id)"></a></td>
         </tr>

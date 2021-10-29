@@ -1,18 +1,25 @@
 package com.springtestproject.controller;
 
+import com.springtestproject.dto.OrderDto;
+import com.springtestproject.dto.TariffDto;
 import com.springtestproject.entity.Role;
 import com.springtestproject.service.OrderService;
 import com.springtestproject.service.TariffService;
 import com.springtestproject.service.UserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
+@RequestMapping("/orders")
 public class OrderController {
 
     private final OrderService orderService;
@@ -25,29 +32,52 @@ public class OrderController {
         this.tariffService = tariffService;
     }
 
-    @GetMapping("/orders")
-    public String getAllOrders(Model model) {
+    @GetMapping
+    public String getAllOrders(Model model,
+                               @RequestParam("page") Optional<Integer> page,
+                               @RequestParam("size") Optional<Integer> size) {
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(5);
+        int totalPages = 0;
 
-        String userRole = userService.getCurrentUser().getRole().toString();
+            Sort sort = Sort.by(Sort.Direction.DESC, "dateTime");
 
-        if (userRole.contains(Role.ROLE_ADMIN.toString())) {
-            model.addAttribute("orders", orderService.getAllOrders());
-        } else model.addAttribute("orders", orderService.getAllOrdersByUser(userService.getCurrentUser()));
+        String userRole = userService.getCurrentUser().getRole();
+
+        Page<OrderDto> orders;
+
+        if (userRole.equals(Role.ROLE_ADMIN.toString())) {
+            orders = orderService.findPaginated(PageRequest.of(currentPage - 1, pageSize, sort), null);
+        } else {
+            orders = orderService.findPaginated(PageRequest.of(currentPage - 1, pageSize, sort),
+                    userService.getCurrentUser().getId());
+        }
+
+        totalPages = orders.getTotalPages();
+        model.addAttribute("orders", orders);
+
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageSize", pageSize);
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
 
         return "order/allOrders";
     }
 
-    @GetMapping("/orders/new")
+    @GetMapping("/new")
     public String addTariff(Model model) {
         model.addAttribute("tariffs", tariffService.getAllTariffs());
         return "order/newOrder";
     }
 
-    @PostMapping("/orders/new")
-    public String addNewTariff(@RequestBody List<Long> tariffsIds) {
+    @PostMapping("/new")
+    @ResponseBody
+    public List<OrderDto> addNewTariff(@RequestBody List<Long> tariffsIds) {
         Long userId = userService.getCurrentUser().getId();
-        orderService.saveNewOrders(tariffsIds, userId);
-        return "redirect:/profile";
+        return orderService.saveNewOrders(tariffsIds, userId);
     }
 
 }

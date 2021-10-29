@@ -28,7 +28,7 @@
 <div class="page-container">
 
 
-    <div class="text-center">
+    <div>
         <div class="row">
             <h4 th:text="${user.firstName}"></h4>
             <h4 th:text="${user.lastName}"></h4>
@@ -54,50 +54,8 @@
 
     <br>
 
-    <div class="d-flex align-items-center justify-content-between">
-        <div class="d-inline">
-            <h4>Orders history</h4>
-        </div>
-        <div class="d-inline ">
-            <a class="btn btn-primary" href="/orders/new" role="button">New order</a>
-        </div>
-    </div>
+    <a class="btn btn-primary" href="/orders/new" role="button">New order</a>
 
-
-    <table class=" table table-striped table-hover">
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Product</th>
-            <th scope="col">Tariff</th>
-            <th scope="col">Price</th>
-            <th scope="col">Date</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="order, iterationStatus: ${orders}">
-            <td th:text="${iterationStatus.count}"></td>
-            <td th:text="${order.tariff.product}"></td>
-            <td th:text="${order.tariff.tariff}"></td>
-            <td th:text="${order.tariff.price}"></td>
-            <td th:text="${#temporals.format(order.dateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
-        </tr>
-        </tbody>
-    </table>
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-                <a class="page-link">Previous</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-            </li>
-        </ul>
-    </nav>
 </div>
-
 </body>
 </html>

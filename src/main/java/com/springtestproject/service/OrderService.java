@@ -10,7 +10,7 @@ import java.util.List;
 public interface OrderService {
     List<OrderDto> getAllOrders();
     List<OrderDto>  getAllOrdersByUser(User user);
-    void saveNewOrders(List<Long> tariffsIds, long userId);
-    Page<OrderDto> findPaginated(Pageable pageable);
+    List<OrderDto> saveNewOrders(List<Long> tariffsIds, long userId);
+    Page<OrderDto> findPaginated(Pageable pageable, Long userId);
 }
 

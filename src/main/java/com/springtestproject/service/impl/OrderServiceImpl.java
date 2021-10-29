@@ -55,7 +55,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public void saveNewOrders(List<Long> tariffsIds, long userId) {
+    public List<OrderDto> saveNewOrders(List<Long> tariffsIds, long userId) {
 
         List<Tariff> tariffs = tariffRepo.findAllById(tariffsIds);
         BigDecimal orderPrice = tariffs.stream()
@@ -65,7 +65,7 @@ public class OrderServiceImpl implements OrderService {
         User user = userRepo.findById(userId);
 
         if (user.getBalance().compareTo(orderPrice) < 0) {
-             throw new LowBalanceException();
+            throw new LowBalanceException();
         }
         user.setBalance(user.getBalance().subtract(orderPrice));
         List<Order> orders = tariffs
@@ -78,10 +78,23 @@ public class OrderServiceImpl implements OrderService {
         } catch (Exception ex) {
             log.info("{Orders not were saved}");
         }
+        
+        return orders.stream()
+                .map(OrderDto::new)
+                .collect(Collectors.toList());
     }
 
-    public Page<OrderDto> findPaginated(Pageable pageable) {
-        Page<Order> orderPage = orderRepo.findAll(pageable);
+    @Override
+    public Page<OrderDto> findPaginated(Pageable pageable, Long userId) {
+
+        Page<Order> orderPage;
+
+        if (userId == null) {
+            orderPage = orderRepo.findAll(pageable);
+        } else {
+            User user = new User(userId);
+            orderPage = orderRepo.findAllByUser(pageable, user);
+        }
 
         List<OrderDto> orderDtos = orderPage
                 .stream()
@@ -90,4 +103,5 @@ public class OrderServiceImpl implements OrderService {
 
         return new PageImpl<>(orderDtos, pageable, orderPage.getTotalElements());
     }
+
 }

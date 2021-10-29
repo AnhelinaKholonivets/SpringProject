@@ -25,7 +25,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-@Controller //(for users)
+@Controller
 public class PageController {
 
     private final TariffService tariffService;
@@ -60,6 +60,7 @@ public class PageController {
                                 @RequestParam("sortDir") Optional<String> sortDir) {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(5);
+
         Sort sort = Sort.unsorted();
 
         if (sortField.isPresent()) {
@@ -77,11 +78,12 @@ public class PageController {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
                     .boxed()
                     .collect(Collectors.toList());
+            model.addAttribute("pageSize", pageSize);
             model.addAttribute("pageNumbers", pageNumbers);
         }
 
         String userRole = userService.getCurrentUser().getRole();
-        if (userRole.contains(Role.ROLE_ADMIN.toString())) {
+        if (userRole.equals(Role.ROLE_ADMIN.toString())) {
             return "tariff/allTariffsAdmin";
         }
         return "tariff/allTariffs";

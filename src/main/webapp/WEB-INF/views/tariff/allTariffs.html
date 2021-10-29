@@ -46,7 +46,7 @@
         </thead>
         <tbody>
         <tr th:each="tariff, iterationStatus: ${tariffs.content}">
-            <td th:text="${iterationStatus.count + tariffs.number * 5}"></td>
+            <td th:text="${iterationStatus.count + tariffs.number * pageSize}"></td>
             <td th:text="${tariff.product}"></td>
             <td th:text="${tariff.tariff}"></td>
             <td th:text="${tariff.price}"></td>

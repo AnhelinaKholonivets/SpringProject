@@ -43,6 +43,7 @@ public class UserController {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
                     .boxed()
                     .collect(Collectors.toList());
+            model.addAttribute("pageSize", pageSize);
             model.addAttribute("pageNumbers", pageNumbers);
         }
         return "user/allUsers";

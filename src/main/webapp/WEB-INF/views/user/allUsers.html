@@ -68,7 +68,7 @@
         <tbody>
         <tr th:each="user, iterationStatus: ${users.content}"
             th:classappend="${not user.blocked} ? 'table-striped' : 'table-danger'">
-            <td th:text="${iterationStatus.count + users.number * 5}"></td>
+            <td th:text="${iterationStatus.count + users.number * pageSize}"></td>
             <td th:text="${user.firstName}"></td>
             <td th:text="${user.lastName}"></td>
             <td th:text="${user.email}"></td>

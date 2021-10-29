@@ -23,12 +23,12 @@
                 contentType: "application/json",
                 success: function (data) {
                     console.log(data);
+                    alert("Done");
                 },
                 error: function (data) {
                     let balanceError = document.getElementById('balanceError');
                     balanceError.style.height = '100px';
                     balanceError.innerHTML = data.responseJSON.message;
-
                 }
             });
         }
@@ -42,7 +42,7 @@
             <h1>All tariffs</h1>
         </div>
         <div class="d-inline">
-            <h2>Your balance: 0.00 UAH</h2>
+<!--            <h2>Your balance: 0.00 UAH</h2>-->
         </div>
     </div>
 
