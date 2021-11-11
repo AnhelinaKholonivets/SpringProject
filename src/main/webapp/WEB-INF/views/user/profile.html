@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Profile</title>
+    <title th:text="#{header.profile}"></title>
     <script>
         function updateBalance() {
             let balance = parseFloat(document.getElementById("currentBalance").innerHTML);
@@ -22,39 +22,32 @@
         }
     </script>
 </head>
+
 <body>
 <div th:insert="components/header"></div>
 
 <div class="page-container">
 
+    <br>
+    <h4 th:text="#{header.profile} +': ' + ${user.firstName} + ' ' + ${user.lastName}"></h4>
+    <h4 th:text="#{email} +': ' + ${user.email}"></h4>
+    <br>
 
-    <div>
-        <div class="row">
-            <h4 th:text="${user.firstName}"></h4>
-            <h4 th:text="${user.lastName}"></h4>
-        </div>
-        <div class="row">
-            <h4 th:text="${user.email}"></h4>
-        </div>
-    </div>
-
-    <h4>Balance amount: </h4>
-    <h4 th:text="${user.balance}" style="color: green" id="currentBalance"></h4>
+    <h4 th:text="#{balance.amount} + ': '" style="display: inline"></h4>
+    <h4 th:text="${user.balance}" style="color: green; display: inline" id="currentBalance"></h4>
 
 
     <div class="input-group mb-3">
         <div class="col-xs-2">
-            <input type="number" class="form-control" aria-label="balanceToAdd" id="balanceToAdd"
+            <input type="number" class="form-control" placeholder="0.00" aria-label="balanceToAdd" id="balanceToAdd"
                    name="balanceToAdd">
         </div>
         <div class="input-group-append">
             <button class="btn btn-outline-primary" type="button" onclick="updateBalance()">Add</button>
         </div>
     </div>
-
     <br>
-
-    <a class="btn btn-primary" href="/orders/new" role="button">New order</a>
+    <a th:text="#{order.new}" class="btn btn-success btn-lg" href="/orders/new" role="button"></a>
 
 </div>
 </body>

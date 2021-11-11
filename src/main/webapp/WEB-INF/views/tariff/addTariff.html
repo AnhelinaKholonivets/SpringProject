@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>New tariff</title>
+    <title th:text="#{tariff.add}"></title>
 </head>
 <body>
 <div th:insert="components/header"></div>
@@ -11,9 +11,9 @@
 
     <form method="post" name="tariff" action="/tariffs/addTariff">
         <div>
-            <label for="product" class="form-label">Product</label>
+            <label th:text="#{product}" for="product" class="form-label"></label>
             <select class="form-control custom-select custom-select-lg mb-3" id="product" name="product">
-                <option selected>Choose...</option>
+                <option th:text="#{choose}" selected></option>
                 <option th:each="product : ${products}"
                         th:value="${product.id}"
                         th:text="${product.product}">

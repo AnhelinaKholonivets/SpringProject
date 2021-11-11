@@ -2,12 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>All tariffs</title>
+    <title th:text="#{order.new}"></title>
     <style>
-        .btn.my-btn {
-            width: auto;
-            overflow: auto;
-        }
     </style>
     <script>
         function addOrders() {
@@ -39,10 +35,9 @@
 <div class="page-container">
     <div class="d-flex align-items-center justify-content-between">
         <div class="d-inline">
-            <h1>All tariffs</h1>
+            <h1 th:text="#{tariff.all}"></h1>
         </div>
         <div class="d-inline">
-<!--            <h2>Your balance: 0.00 UAH</h2>-->
         </div>
     </div>
 
@@ -52,10 +47,10 @@
             <tr>
                 <th scope="col"></th>
                 <th scope="col">#</th>
-                <th scope="col">Product</th>
-                <th scope="col">Tariff</th>
-                <th scope="col">Price</th>
-                <th scope="col">Currency</th>
+                <th th:text="#{product}" scope="col"></th>
+                <th th:text="#{tariff}" scope="col"></th>
+                <th th:text="#{price}" scope="col"></th>
+                <th th:text="#{currency}" scope="col"></th>
             </tr>
             </thead>
             <tbody>
@@ -77,21 +72,15 @@
     </div>
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-                <a class="page-link">Previous</a>
-            </li>
             <li class="page-item"><a class="page-link" href="#">1</a></li>
             <li class="page-item"><a class="page-link" href="#">2</a></li>
             <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-            </li>
         </ul>
     </nav>
 
     <br>
     <div class=text-center>
-        <button class="btn btn-outline-primary" type="button" onclick="addOrders()">Add</button>
+        <button th:text="#{order.new}" class="btn btn-outline-primary" type="button" onclick="addOrders()"></button>
     </div>
 
     <div id="balanceError" style="background-color: red; height: 0;">

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>All tariffs</title>
+    <title th:text="#{tariff.all}"></title>
 
     <script>
         function deleteRequest(id) {
@@ -23,7 +23,7 @@
 <div class="page-container">
 
     <div class="d-inline">
-        <h1>All tariffs</h1>
+        <h1 th:text="#{tariff.all}"></h1>
     </div>
 
     <table class="table table-striped table-hover">

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Add new user</title>
+    <title th:text="#{tariff.add}"></title>
     <!-- Bootstrap core CSS -->
     <link href="../../../../resources/static/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
@@ -19,14 +19,14 @@
                     <label th:text="#{tariff.name}" for="name" class="form-label"></label>
                     <input type="text" class="form-control" id="name" required>
                     <div class="invalid-feedback">
-                        Please enter tariff name.
+                        Please enter name.
                     </div>
                 </div>
                 <div class="col-3">
                     <label th:text="#{price}" for="price" class="form-label"></label>
                     <input type="text" class="form-control" id="price" placeholder="0.00" required>
                     <div class="invalid-feedback">
-                        Please enter price.
+                        Please enter
                     </div>
                 </div>
                 <div class="col-md-2">

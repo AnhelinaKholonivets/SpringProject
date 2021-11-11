@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>All users</title>
+    <title th:text="#{header.users}"></title>
     <script>
         function blockRequest(id) {
             $.ajax({
@@ -45,10 +45,10 @@
 
     <div class="d-flex align-items-center justify-content-between">
         <div class="d-inline">
-            <h1>All users</h1>
+            <h1 th:text="#{user.all}"></h1>
         </div>
         <div class="d-inline ">
-            <a class="btn btn-primary" href="/users/addUser" role="button">Add new user</a>
+            <a th:text="#{user.add}" class="btn btn-success" href="/users/addUser" role="button"></a>
         </div>
     </div>
 
@@ -59,10 +59,10 @@
             <th scope="col">#</th>
             <th th:text="#{user.firstName}" scope="col"></th>
             <th th:text="#{user.lastName}" scope="col"></th>
-            <th th:text="#{email}" scope="col">Email</th>
-            <th th:text="#{user.balance}" scope="col">Balance</th>
-            <th th:text="#{currency}" scope="col">Currency</th>
-            <th scope="col">Block</th>
+            <th th:text="#{email}" scope="col"></th>
+            <th th:text="#{user.balance}" scope="col"></th>
+            <th th:text="#{currency}" scope="col"></th>
+            <th th:text="#{user.status}" scope="col"></th>
         </tr>
         </thead>
         <tbody>
@@ -76,10 +76,10 @@
             <td>UAH</td>
             <td th:if="${not user.blocked and user.role!='ROLE_ADMIN'}"><a
                     class="btn-outline-danger text-decoration-none" th:id="${user.id}"
-                    onclick="blockRequest(this.id)" href="#">Block</a></td>
+                    onclick="blockRequest(this.id)" href="#" th:text="#{user.block}"></a></td>
             <td th:if="${user.role=='ROLE_ADMIN'}"><a class="btn-outline-danger text-decoration-none" href="#"></a></td>
             <td th:if="${user.blocked}"><a class="btn-outline-success text-decoration-none" th:id="${user.id}"
-                                           onclick="blockRequest(this.id)" href="#">Unblock</a></td>
+                                           onclick="blockRequest(this.id)" href="#" th:text="#{user.unblock}"></a></td>
         </tr>
         </tbody>
     </table>

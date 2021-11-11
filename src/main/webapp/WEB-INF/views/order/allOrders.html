@@ -3,7 +3,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Orders</title>
+    <title th:text="#{header.orders}"></title>
 </head>
 
 <body>
@@ -11,14 +11,14 @@
 
 <div class="page-container">
 
-    <h1 sec:authorize="hasRole('ROLE_ADMIN')" class="mx-auto">All orders</h1>
+    <h1 sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{order.all}" class="mx-auto"></h1>
 
     <div sec:authorize="hasRole('ROLE_USER')" class="d-flex align-items-center justify-content-between">
         <div class="d-inline">
-            <h1>Orders history</h1>
+            <h1 th:text="#{order.history}"></h1>
         </div>
-        <div class="d-inline ">
-            <a class="btn btn-primary" href="/orders/new" role="button">New order</a>
+        <div class="d-inline">
+            <a th:text="#{order.new}" class="btn btn-success" href="/orders/new" role="button"></a>
         </div>
     </div>
 
@@ -42,7 +42,6 @@
             <td th:text="${order.tariff.tariff}"></td>
             <td th:text="${order.tariff.price}"></td>
             <td th:text="${#temporals.format(order.dateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
-
         </tr>
         </tbody>
     </table>

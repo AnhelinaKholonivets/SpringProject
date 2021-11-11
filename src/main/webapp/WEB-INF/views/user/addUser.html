@@ -2,32 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add user</title>
+    <title th:text="#{user.add}"></title>
 </head>
 <body>
 <div th:insert="components/header"></div>
 <div class="page-container">
-    <h1 class="mx-auto">Add new user</h1>
+    <h1 th:text="#{user.add}" class="mx-auto"></h1>
 
     <form method="post" name="user" action="/users/addUser">
         <div class="mb-3">
-            <label for="firstName" class="form-label">First name</label>
+            <label th:text="#{user.firstName}"  for="firstName" class="form-label"></label>
             <input type="text" class="form-control" id="firstName" name="firstName"/>
         </div>
         <div class="mb-3">
-            <label for="lastName" class="form-label">Last name</label>
+            <label th:text="#{user.lastName}"  for="lastName" class="form-label"></label>
             <input type="text" class="form-control" id="lastName" name="lastName"/>
         </div>
         <div class="mb-3">
-            <label for="email" class="form-label">Email name</label>
+            <label th:text="#{email}"  for="email" class="form-label"></label>
             <input type="email" class="form-control" id="email" name="email"/>
         </div>
         <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
+            <label th:text="#{password}"  for="password" class="form-label"></label>
             <input type="password" class="form-control" id="password" name="password"/>
         </div>
         <div class="mb-3">
-            <label for="balance" class="form-label">Balance</label>
+            <label th:text="#{user.balance}"  for="balance" class="form-label"></label>
             <input type="number" class="form-control" id="balance" name="balance"/>
         </div>
         <input class="w-100 btn btn-lg btn-primary" type="submit" value="Submit"/>

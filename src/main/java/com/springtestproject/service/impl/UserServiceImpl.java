@@ -1,10 +1,8 @@
 package com.springtestproject.service.impl;
 
-import com.springtestproject.dto.TariffDto;
 import com.springtestproject.dto.UserDto;
 import com.springtestproject.dto.UsersDto;
 import com.springtestproject.entity.Role;
-import com.springtestproject.entity.Tariff;
 import com.springtestproject.entity.User;
 import com.springtestproject.repository.UserRepo;
 import com.springtestproject.service.UserService;
@@ -12,16 +10,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -39,21 +34,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UsersDto getAllUsers() {
-        //TODO checking for an empty user list
         return new UsersDto(userRepo.findAll());
     }
 
     @Override
     public User findByUserLogin(UserDto userDTO) {
-        //TODO check for user availability. password check
-        //return userRepo.findByEmail(userDTO.getEmail());
         return userRepo.findUsersByEmail(userDTO.getEmail());
     }
 
     @Override
     public void saveUser(UserDto user) {
-        //TODO inform the user about the replay email
-        // TODO exception to endpoint
         try {
             User userToSave = new User(null, user.getFirstName(), user.getLastName(),
                     user.getEmail(), passwordEncoder.encode(user.getPassword()), user.getBalance(),
@@ -83,7 +73,6 @@ public class UserServiceImpl implements UserService {
         User user = userRepo.findById(id);
         user.setBalance(user.getBalance().add(addBalance));
         userRepo.save(user);
-
     }
 
     public Page<UserDto> findPaginated(Pageable pageable) {

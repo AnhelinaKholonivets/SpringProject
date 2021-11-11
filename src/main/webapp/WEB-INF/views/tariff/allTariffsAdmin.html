@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>All tariffs</title>
+    <title th:text="#{tariff.all}"></title>
 
     <style>
         .btn.my-btn {
@@ -30,10 +30,10 @@
 
     <div class="d-flex align-items-center justify-content-between">
         <div class="d-inline">
-            <h1>All tariffs</h1>
+            <h1 th:text="#{tariff.all}"></h1>
         </div>
         <div class="d-inline ">
-            <a class="btn btn-primary" href="/tariffs/addTariff" role="button">Add new tariff</a>
+            <a th:text="#{tariff.add}"  class="btn btn-success" href="/tariffs/addTariff" role="button"></a>
         </div>
     </div>
 
