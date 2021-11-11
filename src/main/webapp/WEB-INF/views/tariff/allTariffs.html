@@ -60,9 +60,7 @@
             <li th:if="${tariffs.totalPages > 0}"
                 th:each="pageNumber : ${pageNumbers}"
                 th:class="${pageNumber==tariffs.number + 1} ? 'page-item active' : 'page-item'">
-                <a class="page-link" th:href="@{/tariffs(size=${tariffs.size}, page=${pageNumber},
-                    sortField=${#request.getParameter('sortField')},
-                    sortDir=${#request.getParameter('sortDir')})}"
+                <a class="page-link" th:href="@{/tariffs(size=${tariffs.size}, page=${pageNumber})}"
                    th:text="${pageNumber}"></a></li>
         </ul>
     </nav>
