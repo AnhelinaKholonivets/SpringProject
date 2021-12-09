@@ -1,7 +1,6 @@
 package com.springtestproject.controller;
 
 import com.springtestproject.dto.OrderDto;
-import com.springtestproject.dto.TariffDto;
 import com.springtestproject.entity.Role;
 import com.springtestproject.service.OrderService;
 import com.springtestproject.service.TariffService;
@@ -69,7 +68,7 @@ public class OrderController {
 
     @GetMapping("/new")
     public String addTariff(Model model) {
-        model.addAttribute("tariffs", tariffService.getAllTariffs());
+        model.addAttribute("tariffs", tariffService.findAllTariffs());
         return "order/newOrder";
     }
 

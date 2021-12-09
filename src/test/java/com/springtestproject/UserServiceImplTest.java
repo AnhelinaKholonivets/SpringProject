@@ -1,3 +1,5 @@
+package com.springtestproject;
+
 import com.springtestproject.entity.User;
 import com.springtestproject.repository.UserRepo;
 import com.springtestproject.service.UserService;

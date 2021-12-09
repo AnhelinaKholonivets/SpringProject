@@ -1,7 +1,6 @@
 package com.springtestproject.service.impl;
 
 import com.springtestproject.dto.UserDto;
-import com.springtestproject.dto.UsersDto;
 import com.springtestproject.entity.Role;
 import com.springtestproject.entity.User;
 import com.springtestproject.repository.UserRepo;
@@ -23,23 +22,12 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepo userRepo;
-
-    final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserServiceImpl(UserRepo userRepo, PasswordEncoder passwordEncoder) {
         this.userRepo = userRepo;
         this.passwordEncoder = passwordEncoder;
-    }
-
-    @Override
-    public UsersDto getAllUsers() {
-        return new UsersDto(userRepo.findAll());
-    }
-
-    @Override
-    public User findByUserLogin(UserDto userDTO) {
-        return userRepo.findUsersByEmail(userDTO.getEmail());
     }
 
     @Override
@@ -56,10 +44,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void blockUser(long id) {
+        try {
         User user = userRepo.findById(id);
         user.setBlocked(!user.getBlocked());
         userRepo.save(user);
-
+        } catch (Exception ex) {
+            log.info("{Error block user}");
+        }
     }
 
     @Override
@@ -70,9 +61,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void refileBalance(long id, BigDecimal addBalance) {
+        try {
         User user = userRepo.findById(id);
         user.setBalance(user.getBalance().add(addBalance));
         userRepo.save(user);
+        } catch (Exception ex) {
+            log.info("{Error refile balance}");
+        }
     }
 
     public Page<UserDto> findPaginated(Pageable pageable) {

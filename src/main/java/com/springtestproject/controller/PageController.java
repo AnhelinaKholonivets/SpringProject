@@ -3,7 +3,6 @@ package com.springtestproject.controller;
 import com.springtestproject.dto.BalanceDto;
 import com.springtestproject.dto.TariffDto;
 import com.springtestproject.entity.Role;
-import com.springtestproject.entity.User;
 import com.springtestproject.service.OrderService;
 import com.springtestproject.service.TariffService;
 import com.springtestproject.service.UserService;
@@ -11,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
@@ -92,7 +90,7 @@ public class PageController {
     @GetMapping("/user/profile")
     public String userProfile(Model model) {
         model.addAttribute("user", userService.getCurrentUser());
-        model.addAttribute("orders", orderService.getAllOrdersByUser(userService.getCurrentUser()));
+        model.addAttribute("orders", orderService.findAllOrdersByUser(userService.getCurrentUser()));
         return "user/profile";
     }
 

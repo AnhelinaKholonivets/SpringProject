@@ -28,8 +28,7 @@ public class TariffServiceImpl implements TariffService {
     }
 
     @Override
-    public List<TariffDto> getAllTariffs() {
-        //TODO checking for an empty user list
+    public List<TariffDto> findAllTariffs() {
         return tariffRepo.findAll(Sort.by("product")).stream()
                 .map(TariffDto::new)
                 .collect(Collectors.toList());
@@ -42,7 +41,7 @@ public class TariffServiceImpl implements TariffService {
             Tariff tariffToSave = new Tariff(null, product, tariff.getTariff(), tariff.getPrice());
             tariffRepo.save(tariffToSave);
         } catch (Exception ex){
-            log.info("{Tariff not be saved}");
+            log.info("{Tariff was not saved}");
         }
     }
 
@@ -52,16 +51,16 @@ public class TariffServiceImpl implements TariffService {
             Tariff tariffToSave = new Tariff(id,null, tariff.getTariff(), tariff.getPrice());
             tariffRepo.save(tariffToSave);
         } catch (Exception ex){
-            log.info("{Tariff not be update}");
+            log.info("{Tariff was not saved}");
         }
     }
 
     @Override
-    public void deleteTariff(Long id) {
+    public void deleteTariff(long id) {
         try {
             tariffRepo.deleteById(id);
         } catch (Exception ex){
-            log.info("{Tariff not be delete}");
+            log.info("{Tariff was not delete}");
         }
     }
 

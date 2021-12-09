@@ -38,15 +38,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderDto> getAllOrders() {
-        return orderRepo.findAll()
-                .stream()
-                .map(OrderDto::new)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<OrderDto> getAllOrdersByUser(User user) {
+    public List<OrderDto> findAllOrdersByUser(User user) {
         return orderRepo.findAllByUser(user)
                 .stream()
                 .map(OrderDto::new)

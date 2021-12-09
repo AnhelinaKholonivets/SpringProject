@@ -24,7 +24,7 @@ public class TariffController {
 
     @GetMapping("/addTariff")
     public String addTariff(Model model) {
-        model.addAttribute("products", productService.getAllProducts().getProducts());
+        model.addAttribute("products", productService.findAllProducts().getProducts());
         return "tariff/addTariff";
     }
 
